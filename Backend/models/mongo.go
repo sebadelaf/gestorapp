@@ -21,11 +21,11 @@ var COLLECTION_NAME string
 var mongoClient *mongo.Client //este mantiene la conexion a la base de datos
 
 func LoadEnv() {
-	err := godotenv.Load()
+	err := godotenv.Load("./.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	URI = os.Getenv("MONGODB_URI")
+	URI = os.Getenv("URI")
 	PORT = os.Getenv("PORT")
 	DB_NAME = os.Getenv("DB_NAME")
 	COLLECTION_NAME = os.Getenv("COLLECTION_NAME")
