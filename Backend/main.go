@@ -2,23 +2,23 @@ package main
 
 import (
 	"Backend/models"
-	"github.com/gin-gonic/gin"
 	"Backend/controllers"
+	"Backend/config"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	//crear instancia del servidor
 	server := gin.Default()
 
+	// Configurar CORS para las solicitudes HTTP desde el frontend
+	server.Use(config.SetupCORS())
 
 	//Conectar a la base de datos
 	models.ConnectDb()
 
 	//Rutas
-	users:=server.Group("/user")
-	{	users.GET("/", controllers.GetUsers)
-		users.POST("/new", controllers.CreateUser)
-	}
+	controllers.SetupRoutes(server)
 	//iniciar el servidor
-	server.Run()
+	server.Run(":8080")
 }
